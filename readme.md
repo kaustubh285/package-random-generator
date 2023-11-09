@@ -55,7 +55,7 @@ console.log(randomString); // Output: "BDB5E2615942D09"
 ## Available options
 
 ```Javascript
-['uppercase', 'lowercase', 'numeric', 'symbols', 'specials']
+['all','uppercase', 'lowercase', 'numeric', 'symbols', 'specials']
 ```
 
 ## License

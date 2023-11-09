@@ -1,5 +1,5 @@
 {
-  "name": "random-string-gen",
+  "name": "random-id-generate",
   "version": "1.0.0",
   "description": "A versatile NPM package for generating random strings with customizable options.",
   "main": "index.js",
@@ -14,10 +14,21 @@
     "[\"random\"",
     "\"string\"",
     "\"generator\"",
+    "\"pseudorandom\"",
     "\"password\"",
+    "\"complete\"",
+    "\"chance\"",
+    "\"unique\"",
+    "\"custom\"",
+    "\"numeric\"",
+    "\"alpha\"",
+    "\"alphanumeric\"",
+    "\"symbol\"",
+    "\"special\"",
+    "\"id\"",
     "\"token\"]"
   ],
-  "author": "Kaustubh Deshpande",
+  "author": "Kaustubh Deshpande <kaustubhjdeshpande@gmail.com>(kaustubhjdeshpande@gmail.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kaustubh285/package-random-generator/issues"
