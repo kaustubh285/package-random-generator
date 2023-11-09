@@ -18,9 +18,10 @@ class RandomGenerator {
     this.vocabularyOptions = [];
 
     this.currentLengthLimit = 13;
+    this.defaultLength = 10;
   }
 
-  getRndInteger(min, max) {
+  getRandomIntBetween(min, max) {
     /* 
     Generates a random integer within a specified range.
     Parameters:
@@ -32,7 +33,7 @@ class RandomGenerator {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  generateNum(nChars, maxGroups) {
+  generateUniqueNumber(nChars) {
     /* 
         Generates a new random numeric string based on the specified req.
         Parameters:
@@ -49,15 +50,24 @@ class RandomGenerator {
 
     let trulyRandomNumber = uniqueValue.substring(4, nChars);
 
-    const preNumber1 = this.getRndInteger(10, 20).toString();
-    const preNumber2 = this.getRndInteger(10, 20).toString();
+    const preNumber1 = this.getRandomIntBetween(10, 20).toString();
+    const preNumber2 = this.getRandomIntBetween(10, 20).toString();
 
-    let completeNumber = preNumber1 + preNumber2 + trulyRandomNumber;
+    return preNumber1 + preNumber2 + trulyRandomNumber;
+  }
+
+  increaseLength(uniqueNumber, maxGroups) {
+    /*
+    The default length of the unique number is 
+    */
+
+    const preNumber1 = this.getRandomIntBetween(10, 20).toString();
+    const preNumber2 = this.getRandomIntBetween(10, 20).toString();
     for (let i = 0; i < maxGroups; i++) {
-      let temp = (parseInt(completeNumber) * preNumber1) / preNumber2;
-      completeNumber = completeNumber + temp.toString().substring();
+      let temp = (parseInt(uniqueNumber) * preNumber1) / preNumber2;
+      uniqueNumber = uniqueNumber + temp.toString().substring();
     }
-    return completeNumber;
+    return uniqueNumber;
   }
 
   getCharFromString(value) {
@@ -67,13 +77,13 @@ class RandomGenerator {
       - value: Numeric value used to determine the character.
     Returns: Character from the vocabulary based on the provided value.
     */
-    let arr_index = this.getRndInteger(0, this.vocabularyOptions.length);
+    let arr_index = this.getRandomIntBetween(0, this.vocabularyOptions.length);
     if (
       this.selectedArrayHistory[-1] == arr_index ||
       this.selectedArrayHistory[-2] == arr_index ||
       this.selectedArrayHistory[-3] == arr_index
     ) {
-      arr_index = this.getRndInteger(0, 7);
+      arr_index = this.getRandomIntBetween(0, 7);
     }
     this.selectedArrayHistory.push(arr_index);
     let selectedArray = this.vocabularyOptions[arr_index];
@@ -88,7 +98,6 @@ class RandomGenerator {
       - vocabulary: Array specifying the character groups to include in the vocabulary.
     Returns: None
     */
-
     const addCharSet = (name, set) => {
       if (vocabulary.includes(name)) {
         this.vocabularyOptions.push(set);
@@ -115,8 +124,8 @@ class RandomGenerator {
   }
 
   generate(
-    nChars = this.currentLengthLimit,
-    vocabulary = ["lowercase", "numeric"]
+    nChars = this.defaultLength,
+    vocabulary = ["uppercase", "lowercase", "numeric"]
   ) {
     /* 
         Generates a truly random string based on the time and random calculations with specified characteristics.
@@ -128,17 +137,30 @@ class RandomGenerator {
     */
     let maxGroups = Math.floor(nChars / this.currentLengthLimit) + 1;
     this.createVocabulary(vocabulary);
-    let trulyRandomNumber = this.generateNum(nChars, maxGroups);
-    let trulyRandomString = "";
-    for (let i = 0; i < trulyRandomNumber.length; i++) {
-      let value = this.getCharFromString(trulyRandomNumber[i]);
-      if (value != undefined) trulyRandomString += value;
+
+    let trulyRandomNumber = this.generateUniqueNumber(nChars);
+    if (maxGroups > 1) {
+      trulyRandomNumber = this.increaseLength(trulyRandomNumber);
     }
+    let trulyRandomString = "";
+
+    const findAndAppendChar = (indexValue) => {
+      let value = this.getCharFromString(indexValue);
+      if (value === undefined)
+        findAndAppendChar(this.getRandomIntBetween(0, 10));
+      else {
+        trulyRandomString += value;
+      }
+    };
     console.log(trulyRandomNumber);
+
+    for (let i = 0; i < trulyRandomNumber.length; i++) {
+      findAndAppendChar(trulyRandomNumber[i]);
+    }
     return trulyRandomString.substring(trulyRandomString.length - nChars);
   }
 }
 
 const myConst = new RandomGenerator();
 
-console.log(myConst.generate(40));
+console.log(myConst.generate(20));
