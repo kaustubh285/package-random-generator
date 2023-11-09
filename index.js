@@ -203,6 +203,3 @@ class RandomGenerator {
 }
 
 module.exports = RandomGenerator;
-
-const generator = new RandomGenerator();
-console.log(generator.generate(20));
