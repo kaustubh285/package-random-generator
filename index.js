@@ -21,7 +21,7 @@ class RandomGenerator {
     this.defaultLength = 10;
   }
 
-  getRandomIntBetween(min, max) {
+  getRandomIntBetween = (min, max) => {
     /* 
     Generates a random integer within a specified range.
     Parameters:
@@ -31,9 +31,9 @@ class RandomGenerator {
 
     */
     return Math.floor(Math.random() * (max - min)) + min;
-  }
+  };
 
-  generateUniqueNumber(nChars) {
+  generateUniqueNumber = (nChars) => {
     /* 
         Generates a new random numeric string based on the specified req.
         Parameters:
@@ -54,9 +54,9 @@ class RandomGenerator {
     const preNumber2 = this.getRandomIntBetween(10, 20).toString();
 
     return preNumber1 + preNumber2 + trulyRandomNumber;
-  }
+  };
 
-  increaseLength(uniqueNumber, maxGroups) {
+  increaseLength = (uniqueNumber, maxGroups) => {
     /*
     The default length of the unique number is 
     */
@@ -68,9 +68,9 @@ class RandomGenerator {
       uniqueNumber = uniqueNumber + temp.toString().substring();
     }
     return uniqueNumber;
-  }
+  };
 
-  getCharFromString(value) {
+  getCharFromString = (value) => {
     /*
     Retrieves a character from the vocabulary based on the provided value.
     Parameters:
@@ -89,9 +89,9 @@ class RandomGenerator {
     let selectedArray = this.vocabularyOptions[arr_index];
     let char_index = value % selectedArray.length;
     return selectedArray[char_index];
-  }
+  };
 
-  createVocabulary(vocabulary) {
+  createVocabulary = (vocabulary) => {
     /*
     Creates the vocabulary based on the provided criteria.
     Parameters:
@@ -121,12 +121,9 @@ class RandomGenerator {
     // if (vocabulary.includes("spaces")) {
     //   this.vocabularyOptions.push(this.customCharacterSetSpace);
     // }
-  }
+  };
 
-  generate(
-    nChars = this.defaultLength,
-    vocabulary = ["uppercase", "lowercase", "numeric"]
-  ) {
+  generate = (nChars = this.defaultLength, vocabulary = ["all"]) => {
     /* 
         Generates a truly random string based on the time and random calculations with specified characteristics.
         Parameters:
@@ -139,11 +136,11 @@ class RandomGenerator {
     this.createVocabulary(vocabulary);
 
     let trulyRandomNumber = this.generateUniqueNumber(nChars);
+
     if (maxGroups > 1) {
       trulyRandomNumber = this.increaseLength(trulyRandomNumber);
     }
     let trulyRandomString = "";
-
     const findAndAppendChar = (indexValue) => {
       let value = this.getCharFromString(indexValue);
       if (value === undefined)
@@ -152,15 +149,14 @@ class RandomGenerator {
         trulyRandomString += value;
       }
     };
-    console.log(trulyRandomNumber);
-
     for (let i = 0; i < trulyRandomNumber.length; i++) {
       findAndAppendChar(trulyRandomNumber[i]);
     }
     return trulyRandomString.substring(trulyRandomString.length - nChars);
-  }
+  };
 }
 
-const myConst = new RandomGenerator();
+module.exports = RandomGenerator;
 
-console.log(myConst.generate(20));
+const generator = new RandomGenerator();
+console.log(generator.generate(20));
