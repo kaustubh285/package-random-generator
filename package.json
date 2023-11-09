@@ -1,0 +1,29 @@
+{
+  "name": "random-string-gen",
+  "version": "1.0.0",
+  "description": "A versatile NPM package for generating random strings with customizable options.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaustubh285/package-random-generator.git"
+  },
+  "keywords": [
+    "[\"random\"",
+    "\"string\"",
+    "\"generator\"",
+    "\"password\"",
+    "\"token\"]"
+  ],
+  "author": "Kaustubh Deshpande",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaustubh285/package-random-generator/issues"
+  },
+  "homepage": "https://github.com/kaustubh285/package-random-generator#readme",
+  "dependencies": {
+    "getmac": "^5.21.0"
+  }
+}
