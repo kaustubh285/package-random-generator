@@ -21,6 +21,15 @@ class RandomGenerator {
     this.defaultLength = 10;
   }
 
+  handleEdgeCases = () => {
+    if (this.vocabularyOptions.length == 0) {
+      this.vocabularyOptions.push(this.customCharacterSetAlphaLower);
+      this.vocabularyOptions.push(this.customCharacterSetAlphaUpper);
+      this.vocabularyOptions.push(this.customCharacterSetNumeric);
+    }
+    // TODO: ADD MORE EDGE CASES
+  };
+
   getRandomIntBetween = (min, max) => {
     /* 
     Generates a random integer within a specified range.
@@ -135,6 +144,8 @@ class RandomGenerator {
     let maxGroups = Math.floor(nChars / this.currentLengthLimit) + 1;
     this.createVocabulary(vocabulary);
 
+    // To handle edge cases
+    this.handleEdgeCases();
     let trulyRandomNumber = this.generateUniqueNumber(nChars);
 
     if (maxGroups > 1) {
