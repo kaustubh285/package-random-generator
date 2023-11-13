@@ -3,6 +3,7 @@
 ## Overview
 
 `RandomGenerator` is a JavaScript class for generating customizable random strings. It offers flexibility and customization, allowing users to create unique combinations based on predefined character sets.
+NOTE: Max string length is 21 characters
 
 ## Usage
 
