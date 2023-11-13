@@ -9,6 +9,8 @@
 1. Instantiate the `RandomGenerator` class with an optional custom string.
 
 ```javascript
+const RandomGenerator = require("random-id-generate");
+
 const generator = new RandomGenerator();
 ```
 
