@@ -17,6 +17,13 @@ describe("RandomGenerator", () => {
 
       expect(randomString).to.have.lengthOf(20);
     });
+
+    it("should generate a string of length (33) if passed to generate", () => {
+      const generator = new RandomGenerator();
+      const randomString = generator.generate(33);
+
+      expect(randomString).to.have.lengthOf(33);
+    });
   });
 
   describe("#String output Check", () => {

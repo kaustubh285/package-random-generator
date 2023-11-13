@@ -175,7 +175,16 @@ class RandomGenerator {
 
     // To handle edge cases
     this.handleEdgeCases();
-    let trulyRandomNumber = this.generateUniqueNumber();
+
+    let trulyRandomNumber;
+
+    while (true) {
+      trulyRandomNumber = this.generateUniqueNumber();
+
+      if (trulyRandomNumber !== 0n) {
+        break;
+      }
+    }
 
     trulyRandomNumber = this.increaseLength(trulyRandomNumber, maxGroups);
 
