@@ -3,7 +3,6 @@
 ## Overview
 
 `RandomGenerator` is a JavaScript class for generating customizable random strings. It offers flexibility and customization, allowing users to create unique combinations based on predefined character sets.
-NOTE: Max string length is 21 characters
 
 ## Usage
 
@@ -23,6 +22,12 @@ const randomString = generator.generate(15, ["lowercase", "numeric"]);
 
 console.log(randomString);  // Output: "a1b2c3d4e5f6g7"
 
+```
+
+## Available options
+
+```Javascript
+['all','uppercase', 'lowercase', 'numeric', 'symbols', 'specials']
 ```
 
 ## Important Considerations
@@ -53,12 +58,6 @@ const generator = new RandomGenerator();
 const randomString = generator.generate(15, ["uppercase", "numeric"]);
 
 console.log(randomString); // Output: "BDB5E2615942D09"
-```
-
-## Available options
-
-```Javascript
-['all','uppercase', 'lowercase', 'numeric', 'symbols', 'specials']
 ```
 
 ## License

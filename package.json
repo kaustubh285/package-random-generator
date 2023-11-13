@@ -1,6 +1,6 @@
 {
   "name": "random-id-generate",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A versatile NPM package for generating random strings with customizable options.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/kaustubh285/package-random-generator.git"
   },
   "keywords": [
-    "[\"random\"",
+    "\"random\"",
     "\"string\"",
     "\"generator\"",
     "\"pseudorandom\"",
@@ -26,7 +26,7 @@
     "\"symbol\"",
     "\"special\"",
     "\"id\"",
-    "\"token\"]"
+    "\"token\""
   ],
   "author": "Kaustubh Deshpande <kaustubhjdeshpande@gmail.com>(kaustubhjdeshpande@gmail.com)",
   "license": "MIT",

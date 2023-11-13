@@ -84,20 +84,11 @@ class RandomGenerator {
         Returns: Random numeric string with specified characteristics.
         @function
     */
-  generateUniqueNumber = (nChars) => {
-    const random = Math.floor(Math.random() * (20 - 10 + 1) + 10);
-    let currentT = (Date.now() * random).toString();
-
-    let uniqueValue = (
-      currentT.substring(3) * currentT.substring(3)
-    ).toString();
-
-    let trulyRandomNumber = uniqueValue.substring(4, nChars);
-
-    const preNumber1 = this.getRandomIntBetween(10, 20).toString();
-    const preNumber2 = this.getRandomIntBetween(10, 20).toString();
-
-    return preNumber1 + preNumber2 + trulyRandomNumber;
+  generateUniqueNumber = () => {
+    let randomBigInt = BigInt(Date.now());
+    let randomSmallInt = Math.floor(Math.random() * 10);
+    randomBigInt *= BigInt(randomSmallInt);
+    return randomBigInt;
   };
 
   /** 
@@ -105,13 +96,16 @@ class RandomGenerator {
     @function
     */
   increaseLength = (uniqueNumber, maxGroups) => {
-    const preNumber1 = this.getRandomIntBetween(10, 20).toString();
-    const preNumber2 = this.getRandomIntBetween(10, 20).toString();
+    const preNumber1 = BigInt(this.getRandomIntBetween(10, 20));
+
+    const preNumber2 = BigInt(this.getRandomIntBetween(10, 20));
     for (let i = 0; i < maxGroups; i++) {
-      let temp = (parseInt(uniqueNumber) * preNumber1) / preNumber2;
-      uniqueNumber = uniqueNumber + temp.toString().substring();
+      let temp = BigInt(uniqueNumber * preNumber1) / preNumber2;
+
+      uniqueNumber = BigInt(uniqueNumber.toString() + temp.toString());
     }
-    return uniqueNumber;
+
+    return uniqueNumber.toString();
   };
 
   /**
@@ -181,11 +175,10 @@ class RandomGenerator {
 
     // To handle edge cases
     this.handleEdgeCases();
-    let trulyRandomNumber = this.generateUniqueNumber(nChars);
+    let trulyRandomNumber = this.generateUniqueNumber();
 
-    if (maxGroups > 1) {
-      trulyRandomNumber = this.increaseLength(trulyRandomNumber);
-    }
+    trulyRandomNumber = this.increaseLength(trulyRandomNumber, maxGroups);
+
     let trulyRandomString = "";
     const findAndAppendChar = (indexValue) => {
       let value = this.getCharFromString(indexValue);
