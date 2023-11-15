@@ -24,6 +24,19 @@ console.log(randomString);  // Output: "a1b2c3d4e5f6g7"
 
 ```
 
+### Instances
+
+```javascript
+const RandomGenerator = require("random-id-generate");
+
+// Creating an instance with specific parameters
+const generator = new RandomGenerator();
+const upperNumericRandom = generator.instance(20, ["uppercase", "numeric"]);
+
+console.log(upperNumericRandom(), upperNumericRandom(), upperNumericRandom());
+// Output: 1F8J7B86HI5G6EI4C931 3GFBAF1DI84A12759CI9 GDA7AD957E628B1991FA
+```
+
 ## Available options
 
 ```Javascript
@@ -64,6 +77,10 @@ console.log(randomString); // Output: "BDB5E2615942D09"
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Future scope
+## Note
 
-- copy to clipboard!!!
+If you find `RandomGenerator` helpful in your projects, please consider starring the project on GitHub. As an individual developer, I am creating useful packages for fellow developers and your support is greatly appreciated!
+
+To star the project, visit the [GitHub repository](https://github.com/kaustubh285/package-random-generator) and click on the ⭐️ icon in the top right corner.
+
+Thank you for your support!
