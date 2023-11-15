@@ -32,9 +32,10 @@ class RandomGenerator {
     A class for generating random strings with customizable options. A predefined list of characters are used to generate a unique combination. Any custom strings will be saved as "customString"
     @function
     */
-  constructor(customString) {
+  constructor(charLen, vocab, customString) {
     // TODO: IMPLEMENT CUSTOM STRING REPEAT OR INCLUSION
     this.customString = customString;
+
     this.customCharacterSetAlphaLower = "abcdefghijklmnopqrstuvwxyz";
     this.customCharacterSetAlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     this.customCharacterSetNumeric = "0123456789";
@@ -49,13 +50,16 @@ class RandomGenerator {
 
     this.currentLengthLimit = 13;
     this.defaultLength = 10;
+    this.defaultVocab = ["all"];
+    if (vocab) this.defaultVocab = vocab;
+    if (charLen) this.defaultLength = charLen;
   }
 
   /**
    * The only purpose of this function is to make sure nothing might throw an error
    * @function
    */
-  handleEdgeCases = () => {
+  #handleEdgeCases = () => {
     if (this.vocabularyOptions.length == 0) {
       this.vocabularyOptions.push(this.customCharacterSetAlphaLower);
       this.vocabularyOptions.push(this.customCharacterSetAlphaUpper);
@@ -72,7 +76,7 @@ class RandomGenerator {
     Returns: Random integer within the specified range.
     @function
     */
-  getRandomIntBetween = (min, max) => {
+  #getRandomIntBetween = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
@@ -84,7 +88,7 @@ class RandomGenerator {
         Returns: Random numeric string with specified characteristics.
         @function
     */
-  generateUniqueNumber = () => {
+  #generateUniqueNumber = () => {
     let randomBigInt = BigInt(Date.now());
     let randomSmallInt = Math.floor(Math.random() * 10);
     randomBigInt *= BigInt(randomSmallInt);
@@ -92,13 +96,13 @@ class RandomGenerator {
   };
 
   /** 
-    The max length of the unique number in version 1.0.0 is 13, hence the increaseLength function is called
+    The max length of the unique number in version 1.0.0 is 13, hence the #increaseLength function is called
     @function
     */
-  increaseLength = (uniqueNumber, maxGroups) => {
-    const preNumber1 = BigInt(this.getRandomIntBetween(10, 20));
+  #increaseLength = (uniqueNumber, maxGroups) => {
+    const preNumber1 = BigInt(this.#getRandomIntBetween(10, 20));
 
-    const preNumber2 = BigInt(this.getRandomIntBetween(10, 20));
+    const preNumber2 = BigInt(this.#getRandomIntBetween(10, 20));
     for (let i = 0; i < maxGroups; i++) {
       let temp = BigInt(uniqueNumber * preNumber1) / preNumber2;
 
@@ -115,14 +119,14 @@ class RandomGenerator {
     Returns: Character from the vocabulary based on the provided value.
     @function
     */
-  getCharFromString = (value) => {
-    let arr_index = this.getRandomIntBetween(0, this.vocabularyOptions.length);
+  #getCharFromString = (value) => {
+    let arr_index = this.#getRandomIntBetween(0, this.vocabularyOptions.length);
     if (
       this.selectedArrayHistory[-1] == arr_index ||
       this.selectedArrayHistory[-2] == arr_index ||
       this.selectedArrayHistory[-3] == arr_index
     ) {
-      arr_index = this.getRandomIntBetween(0, 7);
+      arr_index = this.#getRandomIntBetween(0, 7);
     }
     this.selectedArrayHistory.push(arr_index);
     let selectedArray = this.vocabularyOptions[arr_index];
@@ -137,7 +141,7 @@ class RandomGenerator {
     Returns: None
     @function
     */
-  createVocabulary = (vocabulary) => {
+  #createVocabulary = (vocabulary) => {
     const addCharSet = (name, set) => {
       if (vocabulary.includes(name)) {
         this.vocabularyOptions.push(set);
@@ -169,30 +173,30 @@ class RandomGenerator {
         Returns: Random string with specified characteristics
         @function
     */
-  generate = (nChars = this.defaultLength, vocabulary = ["all"]) => {
+  generate = (nChars = this.defaultLength, vocabulary = this.defaultVocab) => {
     const maxGroups = Math.floor(nChars / this.currentLengthLimit) + 1;
-    this.createVocabulary(vocabulary);
+    this.#createVocabulary(vocabulary);
 
     // To handle edge cases
-    this.handleEdgeCases();
+    this.#handleEdgeCases();
 
     let trulyRandomNumber;
 
     while (true) {
-      trulyRandomNumber = this.generateUniqueNumber();
+      trulyRandomNumber = this.#generateUniqueNumber();
 
       if (trulyRandomNumber !== 0n) {
         break;
       }
     }
 
-    trulyRandomNumber = this.increaseLength(trulyRandomNumber, maxGroups);
+    trulyRandomNumber = this.#increaseLength(trulyRandomNumber, maxGroups);
 
     let trulyRandomString = "";
     const findAndAppendChar = (indexValue) => {
-      let value = this.getCharFromString(indexValue);
+      let value = this.#getCharFromString(indexValue);
       if (value === undefined)
-        findAndAppendChar(this.getRandomIntBetween(0, 10));
+        findAndAppendChar(this.#getRandomIntBetween(0, 10));
       else {
         trulyRandomString += value;
       }
@@ -201,6 +205,11 @@ class RandomGenerator {
       findAndAppendChar(trulyRandomNumber[i]);
     }
     return trulyRandomString.substring(trulyRandomString.length - nChars);
+  };
+
+  instance = (nChars = this.defaultLength, vocabulary = this.defaultVocab) => {
+    const generator = new RandomGenerator(nChars, vocabulary);
+    return generator.generate;
   };
 }
 
